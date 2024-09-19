@@ -1,0 +1,28 @@
+CREATE TABLE `Student`(
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `Eesnimi` VARCHAR(255) NOT NULL,
+    `Perekonnanimi` VARCHAR(255) NOT NULL,
+    `GroupId` BIGINT UNSIGNED NOT NULL
+);
+CREATE TABLE `Teacher`(
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `Eesnimi` VARCHAR(255) NOT NULL,
+    `Perekonnanimi` VARCHAR(255) NOT NULL,
+    `Birthdate` DATE NOT NULL
+);
+CREATE TABLE `Comment`(
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `studentid` BIGINT UNSIGNED NOT NULL,
+    `comment` VARCHAR(255) NOT NULL
+);
+CREATE TABLE `Group`(
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `TeacherId` BIGINT UNSIGNED NOT NULL,
+    `Name` VARCHAR(255) NOT NULL
+);
+ALTER TABLE
+    `Student` ADD CONSTRAINT `student_eesnimi_foreign` FOREIGN KEY(`Eesnimi`) REFERENCES `Comment`(`id`);
+ALTER TABLE
+    `Student` ADD CONSTRAINT `student_groupid_foreign` FOREIGN KEY(`GroupId`) REFERENCES `Group`(`id`);
+ALTER TABLE
+    `Group` ADD CONSTRAINT `group_teacherid_foreign` FOREIGN KEY(`TeacherId`) REFERENCES `Teacher`(`id`);
